@@ -23,6 +23,7 @@ mahasiswaAuthRouters.post('/login', async (request, response) => {
 			request.session.loggedIn = true;
 			request.session.username = userGet;
 			request.session.roles = 'mahasiswa';
+			request.session.userid = result[0].id;
 			request.session.cookie.expires = new Date(Date.now()+3600000);
 			response.json({status: 'login success'});
 			return;

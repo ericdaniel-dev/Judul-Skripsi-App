@@ -1,15 +1,15 @@
 const express = require('express');
-const dosenSignupRouters = express.Router();
+const mahasiswaSignupRouters = express.Router();
 const connection = require('../../core/connection.js');
 const filter = require('../../core/filter.js');
 
-dosenSignupRouters.get('/', (request, response) => {
-	response.send('dosen signup Router');
+mahasiswaSignupRouters.get('/', (request, response) => {
+	response.send('mahasiswa signup Router');
 })
 
-dosenSignupRouters.get('/signup/usercheck/:user', async (request, response) => {
+mahasiswaSignupRouters.get('/signup/usercheck/:user', async (request, response) => {
 	const userToCheck = request.params.user;
-	const userToCheckQuery = `SELECT id, user from dosen where user='${userToCheck}'`;
+	const userToCheckQuery = `SELECT id, user from mahasiswa where user='${userToCheck}'`;
 	await connection.query(userToCheckQuery, (error, result) => {
 		if(error){
 			response.json({error: error.message});
@@ -27,9 +27,9 @@ dosenSignupRouters.get('/signup/usercheck/:user', async (request, response) => {
 		}
 	});
 })
-dosenSignupRouters.get('/signup/emailcheck/:email', async (request, response) => {
+mahasiswaSignupRouters.get('/signup/emailcheck/:email', async (request, response) => {
 	const emailToCheck = request.params.email;
-	const emailToCheckQuery = `SELECT id, email from dosen where email='${emailToCheck}'`;
+	const emailToCheckQuery = `SELECT id, email from mahasiswa where email='${emailToCheck}'`;
 	await connection.query(emailToCheckQuery, (error, result) => {
 		if(error){
 			response.json({error: error.message});
@@ -48,7 +48,7 @@ dosenSignupRouters.get('/signup/emailcheck/:email', async (request, response) =>
 	});
 })
 
-dosenSignupRouters.post('/signup', async (request, response) => {
+mahasiswaSignupRouters.post('/signup', async (request, response) => {
 	const {nama, user, pass, email} = request.body;
 	if(filter.containSymbol(nama) || filter.containSymbol(user)
 		|| filter.containSymbol(pass) || !filter.validEmail(email)){
@@ -75,9 +75,9 @@ dosenSignupRouters.post('/signup', async (request, response) => {
 			return;
 		}
 		if(!userRegisteredStatus && !emailRegisteredStatus){
-			const dosenSignupQuery = `INSERT INTO dosen(nama, user, pass, email) 
+			const mahasiswaSignupQuery = `INSERT INTO mahasiswa(nama, user, pass, email) 
 			VALUES('${nama}', '${user}', '${pass}', '${email}')`;
-			await connection.query(dosenSignupQuery, (error, result) => {
+			await connection.query(mahasiswaSignupQuery, (error, result) => {
 				if(error){
 					response.json({error: error.message});
 					return;
@@ -99,4 +99,4 @@ dosenSignupRouters.post('/signup', async (request, response) => {
 	}
 })
 
-module.exports = dosenSignupRouters;
+module.exports = mahasiswaSignupRouters;
