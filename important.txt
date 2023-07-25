@@ -1,0 +1,42 @@
+dosen:
+	id
+	nama
+	#nip
+	user
+	pass
+	email
+
+mahasiswa:
+	id
+	nama
+	nim
+	user
+	pass
+	email
+	program_studi
+	semester
+
+pengajuanjudul:
+	id
+	judul
+	deksripsi
+	tgl_pengajuan
+	pengaju
+	pembimbing
+	status
+	pengingat
+
+
+server (API):
+	- menampilkan data dosen
+		]=> single
+		]=> all
+	- menampilkan data mahasiswa
+		]=> single
+		]=> all
+	- menampilkan data judul skripsi
+		]=> single
+		]=> all
+	- login -> role(dosen, mahasiswa)
+	- daftar -> role(dosen, mahasiswa)
+	- menambah 
